@@ -6,7 +6,7 @@ library(randomForest)
 
 # Single core version
 ptm <- proc.time()
-top.param <- foreach(z=1:200, .combine=rbind, .packages='caret') %do% {
+top.param <- foreach(z=1:100, .combine=rbind, .packages='caret') %do% {
   require(randomForest)
   model <- randomForest(y ~ ., data=training, importance=TRUE, ntree=100)
   output <- as.data.frame(varImp(model, scale=F)[1])

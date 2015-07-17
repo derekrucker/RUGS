@@ -21,8 +21,7 @@ cl <- makeCluster(4)
 registerDoParallel(cl)
 #registerDoMC(cl)
 ptm <- proc.time()
-top.param <- foreach(z=1:100, .combine=rbind, .packages='caret') %dopar% {
-  require(randomForest)
+top.param <- foreach(z=1:100, .combine=rbind, .packages=c('caret','randomForest')) %dopar% {
   model <- randomForest(y ~ ., data=training, importance=TRUE, ntree=100)
   output <- as.data.frame(varImp(model, scale=F)[1])
   output[,2] <- output[,1]/max(output[,1])
